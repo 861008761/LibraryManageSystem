@@ -1,0 +1,468 @@
+//C#的Program.cs代码
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace 图书管理系统
+{
+    static class Program
+    {
+        /// <summary>
+        /// 应用程序的主入口点。
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Form1 f1 = new Form1();
+            Application.Run(f1);
+            if(f1.IsDisposed == true && Form1.i != 0)
+            Application.Run(new Form2());
+        }
+    }
+}
+
+
+//主窗体（Form2.cs）界面设计、布局（用叠加面板实现）以及构造函数中的相关设计及初始化
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Configuration;
+
+namespace 图书管理系统
+{
+    public partial class Form2 : Form
+    {
+        private static SqlConnection conn;
+        public Form2()
+        {
+
+
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Book;user Id=book;password=123");
+            conn.Open();
+            //conn.Close();
+            InitializeComponent();
+            string title ="图书管理系统                  欢迎您，" + Form1.mid;
+            this.Text = title;
+            this.panel12.Visible = true;
+            this.panel11.Visible = true;
+            this.panel10.Visible = true;
+            this.panel9.Visible = true;
+            this.panel8.Visible = true;
+            this.panel7.Visible = true;
+            this.panel6.Visible = true;
+            this.panel5.Visible = true;
+            this.panel4.Visible = true;
+            this.panel3.Visible = true;
+            this.panel2.Visible = true;
+            this.panel1.Visible = true;
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            
+        }
+        
+        private void 添加图书信息ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.panel11.Visible = false;
+            this.panel10.Visible = false;
+            this.panel9.Visible = false;
+            this.panel8.Visible = false;
+            this.panel7.Visible = false;
+            this.panel6.Visible = false;
+            this.panel5.Visible = false;
+            this.panel4.Visible = false;
+            this.panel3.Visible = false;
+            this.panel2.Visible = false;
+            this.panel1.Visible = true;
+        }
+
+        private void 修改图书信息ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //this.panel1.Visible = false;//panel1不能为false，否则其他panel不可见
+            this.panel11.Visible = false;
+            this.panel10.Visible = false;
+            this.panel9.Visible = false;
+            this.panel8.Visible = false;
+            this.panel7.Visible = false;
+            this.panel6.Visible = false;
+            this.panel5.Visible = false;
+            this.panel4.Visible = false;
+            this.panel3.Visible = false;
+
+            this.panel1.Visible = true;
+            this.panel2.Visible = true;
+        }
+
+        private void 删除图书信息ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.panel11.Visible = false;
+            this.panel10.Visible = false;
+            this.panel9.Visible = false;
+            this.panel8.Visible = false;
+            this.panel7.Visible = false;
+            this.panel6.Visible = false;
+            this.panel5.Visible = false;
+            this.panel4.Visible = false;
+
+            this.panel2.Visible = true;
+            this.panel1.Visible = true;//它上一个可见，那么它就可见
+            this.panel3.Visible = true;
+        }
+
+        private void 添加读者信息ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.panel11.Visible = false;
+            this.panel10.Visible = false;
+            this.panel9.Visible = false;
+            this.panel8.Visible = false;
+            this.panel7.Visible = false;
+            this.panel6.Visible = false;
+            this.panel5.Visible = false;
+
+            this.panel3.Visible = true;
+            this.panel2.Visible = true;
+            this.panel1.Visible = true;
+            this.panel4.Visible = true;
+        }
+
+        private void 修改读者信息ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.panel11.Visible = false;
+            this.panel10.Visible = false;
+            this.panel9.Visible = false;
+            this.panel8.Visible = false;
+            this.panel7.Visible = false;
+            this.panel6.Visible = false;
+
+            this.panel4.Visible = true;
+            this.panel3.Visible = true;
+            this.panel2.Visible = true;
+            this.panel1.Visible = true;
+            this.panel5.Visible = true;
+        }
+
+        private void 删除读者信息ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.panel11.Visible = false;
+            this.panel10.Visible = false;
+            this.panel9.Visible = false;
+            this.panel8.Visible = false;
+            this.panel7.Visible = false;
+
+            this.panel5.Visible = true;
+            this.panel4.Visible = true;
+            this.panel3.Visible = true;
+            this.panel2.Visible = true;
+            this.panel1.Visible = true;
+            this.panel6.Visible = true;
+        }
+
+        private void 借阅服务ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.panel11.Visible = false;
+            this.panel10.Visible = false;
+            this.panel9.Visible = false;
+            this.panel8.Visible = false;
+
+            this.panel6.Visible = true;
+            this.panel5.Visible = true;
+            this.panel4.Visible = true;
+            this.panel3.Visible = true;
+            this.panel2.Visible = true;
+            this.panel1.Visible = true;
+            this.panel7.Visible = true;
+        }
+
+        private void 归还管理ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //对按钮进行初始化
+            this.button16.Enabled = false;
+
+            this.panel11.Visible = false;
+            this.panel10.Visible = false;
+            this.panel9.Visible = false;
+
+            this.panel7.Visible = true;
+            this.panel6.Visible = true;
+            this.panel5.Visible = true;
+            this.panel4.Visible = true;
+            this.panel3.Visible = true;
+            this.panel2.Visible = true;
+            this.panel1.Visible = true;
+            this.panel8.Visible = true;
+        }
+
+        private void 罚款管理ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //初始化按钮属性
+            this.button21.Enabled = false;
+            this.button19.Enabled = false;
+            this.textBox33.ReadOnly = true;
+
+            this.panel11.Visible = false;
+            this.panel10.Visible = false;
+
+            this.panel8.Visible = true;
+            this.panel7.Visible = true;
+            this.panel6.Visible = true;
+            this.panel5.Visible = true;
+            this.panel4.Visible = true;
+            this.panel3.Visible = true;
+            this.panel2.Visible = true;
+            this.panel1.Visible = true;
+            this.panel9.Visible = true;
+        }
+
+        private void 图书信息查询ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.panel11.Visible = false;
+            this.panel9.Visible = true;
+            this.panel8.Visible = true;
+            this.panel7.Visible = true;
+            this.panel6.Visible = true;
+            this.panel5.Visible = true;
+            this.panel4.Visible = true;
+            this.panel3.Visible = true;
+            this.panel2.Visible = true;
+            this.panel1.Visible = true;
+            this.panel10.Visible = true;
+        }
+
+        private void 读者信息查询ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.panel12.Visible = false;
+            this.panel10.Visible = true;
+            this.panel9.Visible = true;
+            this.panel8.Visible = true;
+            this.panel7.Visible = true;
+            this.panel6.Visible = true;
+            this.panel5.Visible = true;
+            this.panel4.Visible = true;
+            this.panel3.Visible = true;
+            this.panel2.Visible = true;
+            this.panel1.Visible = true;
+            this.panel11.Visible = true;
+        }
+
+
+
+//借阅管理、归还管理以及超期罚款
+
+private void button13_Click(object sender, EventArgs e)//借阅管理界面
+        {
+            //管理员号码已经可以有了，要判断图书条码号以及学号是否存在，判断输入的格式对不对
+            //自动添加的属性有，管理员编号、处理状态、罚款
+            string BookID = this.textBox25.Text;
+            string ReaderID = this.textBox26.Text;
+            string Outdate = this.textBox27.Text;
+            string YHdate = this.textBox28.Text;
+            string MID = Form1.mid;
+
+            string judge1 = string.Format("select count(*) from dbo.Book where BookID = '{0}' and BookState = '可借'",BookID);
+            SqlCommand command1 = new SqlCommand(judge1,conn);
+            int i = Convert.ToInt32(command1.ExecuteScalar());
+            if (i == 0) { MessageBox.Show("借阅失败！请检查后重试！"); }
+
+            string judge2 = string.Format("select count(*) from dbo.Reader where ReaderID = '{0}'",ReaderID);
+            SqlCommand command2 = new SqlCommand(judge2,conn);
+            int j = Convert.ToInt32(command2.ExecuteScalar());
+            if (j == 0) { MessageBox.Show("不存在该读者信息！请重试！"); }
+
+            if (i != 0 && j != 0)
+            {
+                DataTable dt = new DataTable();
+                string sql = string.Format("insert into dbo.borrow(bookid,readerid,outdate,yhdate,indate,fine,clstate,mid) values ('{0}','{1}','{2}','{3}',null,'0','否','{4}')", BookID, ReaderID, Outdate, YHdate, MID);
+                SqlDataAdapter da = new SqlDataAdapter(sql, conn);
+                da.Fill(dt);
+                this.dataGridView7.DataSource = dt;
+                MessageBox.Show("登记成功!");
+            }
+            //string
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            string BookID = this.textBox25.Text;
+            string ReaderID = this.textBox26.Text;
+            DataTable dt = new DataTable();
+            string sql = string.Format("select * from dbo.Borrowview");
+            SqlDataAdapter da = new SqlDataAdapter(sql,conn);
+            da.Fill(dt);
+            this.dataGridView7.DataSource = dt;
+        }
+
+        private void button15_Click(object sender, EventArgs e)//超期查询
+        {
+            string BookID = this.textBox29.Text;
+            string ReaderID = this.textBox30.Text;
+
+            string sql1 = string.Format("select count(*) from dbo.Book where BookID = '{0}'",BookID);
+            SqlCommand command1 = new SqlCommand(sql1,conn);
+            int i = Convert.ToInt32(command1.ExecuteScalar());
+            if (i == 0) { MessageBox.Show("图书信息有误！请重试！"); }
+
+            string sql2 = string.Format("select count(*) from dbo.Reader where ReaderID = '{0}'", ReaderID);
+            SqlCommand command2 = new SqlCommand(sql2, conn);
+            int j = Convert.ToInt32(command2.ExecuteScalar());
+            if (j == 0) { MessageBox.Show("读者信息有误！请重试！"); }
+
+            string sql4 = string.Format("select count(*) from dbo.Borrow where BookID = '{0}' and ReaderID = '{1}'", BookID, ReaderID);
+            SqlCommand command4 = new SqlCommand(sql4,conn);
+            int k = Convert.ToInt32(command4.ExecuteScalar());
+            if (k == 0) { MessageBox.Show("不存在该借阅信息！"); }
+
+            if (i != 0 && j != 0 && k != 0)
+            {
+                string sql3 = string.Format("select YHdate from dbo.Borrow where BookID = '{0}' and ReaderID = '{1}'",BookID,ReaderID);
+                SqlCommand command3 = new SqlCommand(sql3,conn);
+                string dt1 = Convert.ToString(command3.ExecuteScalar());//借阅时设定的应还时间
+                string dt2 = Convert.ToString(System.DateTime.Now);//当前时间
+                //当前时间小于应还时间，说明没有超期   还有一个问题：如果应还时间在以前，而且已经还了，这个不能算超期
+                string sql5 = string.Format("select count(*) from dbo.Borrow where BookID = '{0}' and ReaderID = '{1}' and Indate = null", BookID, ReaderID);
+                SqlCommand command5 = new SqlCommand(sql5,conn);
+                int m = Convert.ToInt32(command5.ExecuteScalar());//m不等于0表示没有还
+
+                if (m == 0) { MessageBox.Show("该图书已经归还！"); this.button16.Enabled = false; }
+
+                if (DateTime.Parse(dt2) < DateTime.Parse(dt1) && m != 0) { MessageBox.Show("尚未归还、没有超期，可以归还！"); }
+                 
+                if (DateTime.Parse(dt1) < DateTime.Parse(dt2) && m != 0) { MessageBox.Show("尚未归还、已经超期，接收罚款处理！"); this.button16.Enabled = false; } //超期下面的归还按钮就不可以点击
+            }
+        }
+
+        private void button16_Click(object sender, EventArgs e)//归还按钮的点击事件，有触发事件，把图书状态设置为可借
+        {
+            DataTable dt = new DataTable();
+            string todaydate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd")).ToShortDateString();
+            string BookID = this.textBox29.Text;
+            string ReaderID = this.textBox30.Text;
+            string sql = string.Format("update dbo.Borrow set Indate = '{0}' where BookID = '{1}' and ReaderID = '{2}'", todaydate, BookID, ReaderID);
+            SqlDataAdapter da = new SqlDataAdapter(sql, conn);
+            da.Fill(dt);
+            this.dataGridView8.DataSource = dt;
+
+            MessageBox.Show("图书归还成功！");
+        }
+
+        private void button17_Click(object sender, EventArgs e)//归还后查看借阅信息，用Historyview视图
+        {
+            DataTable dt = new DataTable();
+            string sql = string.Format("select * from dbo.Historyview");
+            SqlDataAdapter da = new SqlDataAdapter(sql,conn);
+            da.Fill(dt);
+            this.dataGridView8.DataSource = dt;
+        }
+
+        private void button18_Click(object sender, EventArgs e)//查看是不是已经处理过，罚款已经交了
+        {
+            string BookID = this.textBox31.Text;
+            string ReaderID = this.textBox32.Text;
+
+            string sql1 = string.Format("select count(*) from dbo.Book where BookID = '{0}'",BookID);
+            SqlCommand command1 = new SqlCommand(sql1,conn);
+            int i = Convert.ToInt32(command1.ExecuteScalar());
+            if (i == 0) { MessageBox.Show("该图书信息有误！"); this.button21.Enabled = false; this.button19.Enabled = false; }
+
+            string sql2 = string.Format("select count(*) from dbo.Reader where ReaderID = '{0}'", ReaderID);
+            SqlCommand command2 = new SqlCommand(sql2, conn);
+            int j = Convert.ToInt32(command2.ExecuteScalar());
+            if (j == 0) { MessageBox.Show("该读者信有误！"); this.button21.Enabled = false; this.button19.Enabled = false; }
+
+            //如果图书、读者信息都正确，但是这个组合没有，就是没有借书，那么就要提示
+            string sql3 = string.Format("select count(*) from dbo.Borrow where BookID = '{0}' and ReaderID = '{1}'",BookID,ReaderID);
+            SqlCommand command3 = new SqlCommand(sql3,conn);
+            int m = Convert.ToInt32(command3.ExecuteScalar());
+            if (i != 0 && j != 0 && m == 0) { MessageBox.Show("不存在该记录！"); this.button21.Enabled = false; this.button19.Enabled = false; }
+
+            if (i != 0 && j != 0 && m != 0) 
+            {
+                string sql4 = string.Format("select YHdate from dbo.Borrow where BookID = '{0}' and ReaderID = '{1}'", BookID, ReaderID);
+                SqlCommand command4 = new SqlCommand(sql4, conn);
+                string dt1 = Convert.ToString(command4.ExecuteScalar());//借阅时设定的应还时间
+                string dt2 = Convert.ToString(System.DateTime.Now);//当前时间
+                //当前时间小于应还时间，说明没有超期   还有一个问题：如果应还时间在以前，而且已经还了，这个不能算超期
+                string sql5 = string.Format("select count(*) from dbo.Borrow where BookID = '{0}' and ReaderID = '{1}' and Indate is null ", BookID, ReaderID);
+                SqlCommand command5 = new SqlCommand(sql5, conn);
+                int n = Convert.ToInt32(command5.ExecuteScalar());//n不等于0表示没有还，
+
+                if (n == 0) { MessageBox.Show("该图书已经归还！"); this.button21.Enabled = false; this.button19.Enabled = false; }
+
+                if (DateTime.Parse(dt2) < DateTime.Parse(dt1) && n != 0) { MessageBox.Show("尚未归还、没有超期，请转到归还管理界面！"); this.button21.Enabled = false; this.button19.Enabled = false; }
+
+                if (DateTime.Parse(dt1) < DateTime.Parse(dt2) && n != 0) { MessageBox.Show("尚未归还、已经超期，接收罚款处理！"); this.button21.Enabled = true; } //超期下面的归还按钮就不可以点击
+            }
+            //string sql3 = string.Format("select count(*) from dbo.Borrow where BookID = '{0}' and ReaderID = '{1}' and CLState = '否' and Indate = null",BookID,ReaderID);
+            //SqlCommand command3 = new SqlCommand(sql3,conn);
+            //int k = Convert.ToInt32(command3.ExecuteScalar());
+            ////k不等于0的话，说明没有处理过、没有归还过，那就是要罚款的节奏啊
+            ////没有归还而且时间过了应还日期
+
+            //if (i != 0 && j != 0 && m != 0 && k == 0) { MessageBox.Show("该罚款已经处理，不可以罚款！"); this.button19.Enabled = false; }
+
+            //if (i != 0 && j != 0 && k != 0 && m != 0 && k != 0)
+            //{
+       
+            //    MessageBox.Show("可以进行罚款处理！请在下面的文本框输入罚款金额！"); this.button19.Enabled = true;
+            //}
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+
+            string BookID = this.textBox31.Text;
+            string ReaderID = this.textBox32.Text; 
+            string Fine = this.textBox33.Text;
+            DateTime dt1 = System.DateTime.Now;
+
+            string sql5 = string.Format("update dbo.Borrow set Indate = '{0}',CLState = '{1}',Fine = '{2}' where BookID = '{3}' and ReaderID = '{4}'", dt1, '是', Fine, BookID, ReaderID);
+            SqlDataAdapter da = new SqlDataAdapter(sql5, conn);
+            da.Fill(dt);
+            this.dataGridView9.DataSource = dt;
+            MessageBox.Show("罚款处理完成！");
+            //}
+                
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            string sql = string.Format("select * from dbo.Fineview");
+            SqlDataAdapter da = new SqlDataAdapter(sql,conn);
+            da.Fill(dt);
+            this.dataGridView9.DataSource = dt;
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            string BookID = this.textBox31.Text;
+            string ReaderID = this.textBox32.Text;
+            //string dt2 = Convert.ToString(System.DateTime.Now);//当前时间
+            DateTime dt1 = System.DateTime.Now;
+
+            string sql = string.Format("select YHdate from dbo.Borrow where BookID = '{0}' and ReaderID = '{1}'", BookID, ReaderID);
+            SqlCommand command = new SqlCommand(sql, conn);
+            //string dt1 = Convert.ToString(command.ExecuteScalar());//借阅时设定的应还时间
+            DateTime dt2 = Convert.ToDateTime(command.ExecuteScalar());
+            TimeSpan timeSpan = dt1 - dt2;
+            string ts = timeSpan.TotalDays.ToString();
+            string[] tss = ts.Split(new char[]{'.'});
+            int days = int.Parse(tss[0]);
+            double fine = Math.Ceiling(0.1 * days);
+            this.textBox33.Text = fine.ToString();
+            MessageBox.Show("超期天数为：" + tss[0] + "天，罚款按每天0.1元计算,向上取整！");
+            this.button19.Enabled = true;
+        }
